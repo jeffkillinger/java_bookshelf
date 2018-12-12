@@ -10,47 +10,16 @@ public class Bookshelf {
 		
 		populate();
 		
-		System.out.println(bookshelf.length);
+		menu();
 
-		//Bookshelf Menu
-		System.out.println("What would you like to do to your bookshelf?");
-		System.out.println("a-- add book");
-		System.out.println("r-- remove book");
-		System.out.println("f-- find a book");
-		System.out.println("d-- display books");
-		System.out.println("s-- suggest a book");
-		
-		Scanner scnr = new Scanner(System.in);
-		String menuItem = scnr.next();
-		
-		if (menuItem.charAt(0) == 'a') {
-			add();
-		}
-		else if (menuItem.charAt(0) == 'r') {
-			remove();
-		}
-		else if (menuItem.charAt(0) == 'f') {
-			find();
-		}
-		else if (menuItem.charAt(0) == 'd') {
-			display();
-		}
-		else if (menuItem.charAt(0) == 's') {
-			suggest();
-		}
-		
-		scnr.close();
 	}
 	
 	
-
-	
-	public static Book add() {
+	public static void add() {
 		Scanner scnr = new Scanner(System.in);
 		
 		System.out.println("What is the name of the book you would like to add? ");
 		String title = scnr.nextLine();
-		
 		
 		System.out.println("Who is the author? ");
 		String author = scnr.nextLine();
@@ -62,13 +31,15 @@ public class Bookshelf {
 		System.out.println("How many pages long is the book? ");
 		int pageCount = scnr.nextInt();
 		
-		//Lots of problems with below attempt to add
 		scnr.close();
 		
- 
-		return new Book(title, author, genre, pageCount);
-		
+		for (int i = 0; i < bookshelf.length; i++) {
+			if(bookshelf[i].title == "") {
+				bookshelf[i] = new Book(title, author, genre, pageCount);
+			}
 		}
+		
+	}
 	
 	public static void remove() {
 		Scanner scnr = new Scanner(System.in);
@@ -92,8 +63,10 @@ public class Bookshelf {
 	public static void suggest() {}
 	
 	public static void display() {
-		for(int i = 0; i < 25; i++) {
-			System.out.println(bookshelf[i].title + " by " + bookshelf[i].author);
+		for(int i = 0; i < bookshelf.length; i++) {
+			if (bookshelf[i].title != "") {
+				System.out.println(bookshelf[i].title + " by " + bookshelf[i].author);
+			}
 		}
 	}
 	
@@ -124,8 +97,42 @@ public class Bookshelf {
 		bookshelf[21] = new Book("A Colony in a Nation", "Chris Hayes", "Politics", 272);
 		bookshelf[22] = new Book("Democracy in Chains", "Nancy MacLean", "Politics", 368);
 		bookshelf[23] = new Book("Give Me Liberty", "Naomi Wolf", "Politics", 376);
+		for (int i = 24; i < 100; i++) {
+			bookshelf[i] = new Book("", "", "", 0);
+		}
 	}
 	
+	public static void menu() {
+		//Bookshelf Menu
+		System.out.println("What would you like to do to your bookshelf?");
+		System.out.println("a-- add book");
+		System.out.println("r-- remove book");
+		System.out.println("f-- find a book");
+		System.out.println("d-- display books");
+		System.out.println("s-- suggest a book");
+		
+		Scanner scnr = new Scanner(System.in);
+		String menuItem = scnr.next();
+		
+		if (menuItem.charAt(0) == 'a') {
+			add();
+		}
+		else if (menuItem.charAt(0) == 'r') {
+			remove();
+		}
+		else if (menuItem.charAt(0) == 'f') {
+			find();
+		}
+		else if (menuItem.charAt(0) == 'd') {
+			display();
+			menu();
+		}
+		else if (menuItem.charAt(0) == 's') {
+			suggest();
+		}
+		
+		scnr.close();
+	}
 	
 }
 
