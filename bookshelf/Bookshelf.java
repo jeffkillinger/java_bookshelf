@@ -33,11 +33,12 @@ public class Bookshelf {
 		
 		scnr.close();
 		
-		for (int i = 0; i < bookshelf.length; i++) {
-			if(bookshelf[i].title == "") {
-				bookshelf[i] = new Book(title, author, genre, pageCount);
-			}
+		int i = 0;
+		while (bookshelf[i].title != ""){
+			i++;
 		}
+		bookshelf[i+1] = new Book(title, author, genre, pageCount);
+	
 		
 	}
 	
@@ -52,15 +53,52 @@ public class Bookshelf {
 				//Remove title from array somehow
 			}
 		}
-		
+		scnr.close();
 		
 	}
 	
 	public static void find() {
+		System.out.println("Are you looking for an author or a title?");
+		System.out.println("a-- author");
+		System.out.println("t-- title");
 		
+		Scanner scnr = new Scanner(System.in);
+		String choice = scnr.next();
+		
+		if (choice.charAt(0) == 'a') {
+			System.out.println("Enter name of author to find books:");
+			Scanner auth = new Scanner(System.in);
+			String author = auth.nextLine();
+		
+			
+			for (int i = 0; i < bookshelf.length; i++) {
+				if(bookshelf[i].author.equals(author)) {
+					System.out.println("Books by author: ");
+					System.out.println(bookshelf[i].title);
+				}
+			}
+		}
+		else if (choice.charAt(0) == 't') {
+			System.out.println("Enter name of title:");
+			Scanner bookTitle = new Scanner(System.in);
+			String title = bookTitle.nextLine();
+		
+			
+			for (int i = 0; i < bookshelf.length; i++) {
+				if(bookshelf[i].title.equals(title)) {
+					System.out.println(title + " is by " + bookshelf[i].author + " and is " + bookshelf[i].pageCount + " pages long.");
+				}
+			}
+		}
+		else {
+			System.out.println("Not a valid option");
+		}
 	}
 	
-	public static void suggest() {}
+	public static void suggest() {
+		//randomize a number between indices
+		//print resulting book to console
+	}
 	
 	public static void display() {
 		for(int i = 0; i < bookshelf.length; i++) {
@@ -116,20 +154,22 @@ public class Bookshelf {
 		
 		if (menuItem.charAt(0) == 'a') {
 			add();
+			display();
 		}
 		else if (menuItem.charAt(0) == 'r') {
 			remove();
+			display();
 		}
 		else if (menuItem.charAt(0) == 'f') {
 			find();
 		}
 		else if (menuItem.charAt(0) == 'd') {
 			display();
-			menu();
 		}
 		else if (menuItem.charAt(0) == 's') {
 			suggest();
 		}
+		
 		
 		scnr.close();
 	}

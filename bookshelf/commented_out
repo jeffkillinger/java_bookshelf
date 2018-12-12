@@ -7,3 +7,10 @@ bookshelf[length + 1] = add();
 //Just some lines I was using to check on things
 System.out.println(bookshelf[2].author);
 System.out.println(bookshelf[0].author);
+
+//For trying to add new book, problem was it filled EVERY EMPTY book with added book data
+for (int i = 0; i < bookshelf.length; i++) {
+	if(bookshelf[i].title == "") {
+		bookshelf[i] = new Book(title, author, genre, pageCount);
+	}
+}
