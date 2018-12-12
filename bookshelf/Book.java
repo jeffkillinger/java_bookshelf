@@ -38,6 +38,4 @@ public class Book {
 		this.pageCount = pageCount;
 	}
 	
-	
-	
 }

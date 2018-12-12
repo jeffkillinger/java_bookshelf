@@ -21,8 +21,28 @@ public class Bookshelf {
 		
 		int length = bookshelf.length;
 		
-		bookshelf[length + 1] = add();
-
+		//bookshelf[length + 1] = add();
+		
+		//Bookshelf Menu
+		System.out.println("What would you like to do to your bookshelf? \n a-- add book \n r-- remove book \n f-- find a book \n d-- display books \n s-- suggest a book");
+		Scanner scnr = new Scanner(System.in);
+		String menuItem = scnr.next();
+		
+		if (menuItem.charAt(0) == 'a') {
+			add();
+		}
+		else if (menuItem.charAt(0) == 'r') {
+			
+		}
+		else if (menuItem.charAt(0) == 'f') {
+			
+		}
+		else if (menuItem.charAt(0) == 'd') {
+			
+		}
+		else if (menuItem.charAt(0) == 's') {
+			
+		}
 	}
 	
 	
@@ -46,18 +66,25 @@ public class Bookshelf {
 		
 		//Lots of problems with below attempt to add
 		scnr.close();
+		
+ 
 		return new Book(title, author, genre, pageCount);
 		
 		}
 	
 	public static void remove() {
+		Scanner scnr = new Scanner(System.in);
+		
 		System.out.println("What is the name of the title you would like to remove? ");
+		String titleToRemove = scnr.nextLine();
 		
-		//Take in title and set to variable
+		//for (int i = 0; i < bookshelf.length; i++) {
+		//	if(bookshelf[i].title = titleToRemove) {
+				//Remove title from array somehow
+			//}
+		//}
 		
-		//Iterate through bookshelf to find title that matches input
 		
-		//Remove title from array somehow?
 	}
 	
 	public static void search() {
