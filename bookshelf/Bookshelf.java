@@ -1,30 +1,21 @@
 package bookshelf;
 
-//import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
-import java.nio.file;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 
 public class Bookshelf {
 
-	Charset charset = Charset.forName("US-ASCII");
-	try (BufferedReader reader = Files.newBufferedReader(file, charset)){
-		String line = null;
-		while ((line = reader.readline()) != null) {
-			System.out.println(line);
-		}
-	} catch (IOException x) {
-		System.err.format("IOException: %s%n, x);
-	}
-	
-	
-	
-	
-	
-	public static void main(String[] args) {
-	
 
+
+	public static void main(String[] args) throws FileNotFoundException {
+		Scanner scnr = new Scanner(new File("/Users/jeff/Desktop/books.csv"));
+		scnr.useDelimiter(",");
+		while(scnr.hasNext()) {
+			System.out.print(scnr.next() + "|");
+		}
+		scnr.close();
 	}
 	
 	
@@ -41,7 +32,3 @@ public class Bookshelf {
 
 }
 
-
-
-
-//public class BufferedReader extends Reader {}
