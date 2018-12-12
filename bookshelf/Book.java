@@ -13,7 +13,7 @@ public class Book {
 		this.pageCount = pageCount;
 	}
 	
-	public String getTitle() {
+/*	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
@@ -36,6 +36,6 @@ public class Book {
 	}
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
-	}
+	}*/
 	
 }

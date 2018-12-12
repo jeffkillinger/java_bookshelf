@@ -1,0 +1,9 @@
+
+//For trying to add a book to the bookshelf, length+1 was going out-of-bounds
+int length = bookshelf.length;
+bookshelf[length + 1] = add();
+
+		
+//Just some lines I was using to check on things
+System.out.println(bookshelf[2].author);
+System.out.println(bookshelf[0].author);

@@ -3,28 +3,23 @@ package bookshelf;
 import java.util.Scanner;
 
 public class Bookshelf {
-
+	static Book[] bookshelf = new Book[100];
+	
+	
 	public static void main(String[] args) {		
-		Book[] bookshelf = new Book[100];
 		
-		for (int i = 0; i < 25; i++) {
-			bookshelf[i] = new Book("", "", "", 0);
-		}
+		populate();
 		
-		bookshelf[0] = new Book("Oh the Glory of it All", "Sean Wilsey", "Memoir", 484);
-		
-		bookshelf[2].author = "George Saunders";
-		
-		System.out.println(bookshelf[2].getAuthor());
-		
-		System.out.println(bookshelf[0].getAuthor());
-		
-		int length = bookshelf.length;
-		
-		//bookshelf[length + 1] = add();
-		
+		System.out.println(bookshelf.length);
+
 		//Bookshelf Menu
-		System.out.println("What would you like to do to your bookshelf? \n a-- add book \n r-- remove book \n f-- find a book \n d-- display books \n s-- suggest a book");
+		System.out.println("What would you like to do to your bookshelf?");
+		System.out.println("a-- add book");
+		System.out.println("r-- remove book");
+		System.out.println("f-- find a book");
+		System.out.println("d-- display books");
+		System.out.println("s-- suggest a book");
+		
 		Scanner scnr = new Scanner(System.in);
 		String menuItem = scnr.next();
 		
@@ -32,20 +27,23 @@ public class Bookshelf {
 			add();
 		}
 		else if (menuItem.charAt(0) == 'r') {
-			
+			remove();
 		}
 		else if (menuItem.charAt(0) == 'f') {
-			
+			find();
 		}
 		else if (menuItem.charAt(0) == 'd') {
-			
+			display();
 		}
 		else if (menuItem.charAt(0) == 's') {
-			
+			suggest();
 		}
+		
+		scnr.close();
 	}
 	
 	
+
 	
 	public static Book add() {
 		Scanner scnr = new Scanner(System.in);
@@ -78,22 +76,57 @@ public class Bookshelf {
 		System.out.println("What is the name of the title you would like to remove? ");
 		String titleToRemove = scnr.nextLine();
 		
-		//for (int i = 0; i < bookshelf.length; i++) {
-		//	if(bookshelf[i].title = titleToRemove) {
+		for (int i = 0; i < bookshelf.length; i++) {
+			if(bookshelf[i].title == titleToRemove) {
 				//Remove title from array somehow
-			//}
-		//}
+			}
+		}
 		
 		
 	}
 	
-	public static void search() {
+	public static void find() {
 		
 	}
 	
-	public static void recommend() {}
+	public static void suggest() {}
 	
+	public static void display() {
+		for(int i = 0; i < 25; i++) {
+			System.out.println(bookshelf[i].title + " by " + bookshelf[i].author);
+		}
+	}
 	
 
+	public static void populate() {
+		//Add current library
+		bookshelf[0] = new Book("Oh the Glory of it All", "Sean Wilsey", "Memoir", 512);
+		bookshelf[1] = new Book("White Teeth", "Zadie Smith", "Literary", 464);
+		bookshelf[2] = new Book("Lincoln in the Bardo", "George Saunders", "Literary", 343);
+		bookshelf[3] = new Book("The Positronic Man", "Isaac Asimov", "Sci-Fi", 204);
+		bookshelf[4] = new Book("Born Standing Up", "Steve Martin", "Memoir", 207);
+		bookshelf[5] = new Book("Foundation", "Isaac Asimov", "Sci-Fi", 200);
+		bookshelf[6] = new Book("Plainsong", "Kent Haruf", "Literary", 301);
+		bookshelf[7] = new Book("The Fifth Season", "N. K. Jemisin", "Fantasy", 512);
+		bookshelf[8] = new Book("The Obelisk Gate", "N. K. Jemisin", "Fantasy", 448);
+		bookshelf[9] = new Book("The Stone Sky", "N. K. Jemisin", "Fantasy", 464);
+		bookshelf[10] = new Book("Dune", "Frank Herbert", "Sci-Fi", 204);
+		bookshelf[11] = new Book("Housekeeping", "Marilynne Robinson", "Literary", 219);
+		bookshelf[12] = new Book("Grant", "Ron Chernow", "Biography", 1104);
+		bookshelf[13] = new Book("A Brief History of Seven Killings", "Marlon James", "Literary", 704);
+		bookshelf[14] = new Book("Home", "Marilynne Robinson", "Literary", 336);
+		bookshelf[15] = new Book("A Visit From the Goon Squad", "Jennifer Egan", "Literary", 352);
+		bookshelf[16] = new Book("A Book of Common Prayer", "Joan Didion", "Literary", 272);
+		bookshelf[17] = new Book("Contact", "Carl Sagan", "Sci-Fi", 448);
+		bookshelf[18] = new Book("Beloved", "Toni Morrison", "Literary", 321);
+		bookshelf[19] = new Book("The Shock Doctrine", "Naomi Klein", "Politics", 720);
+		bookshelf[20] = new Book("Dark Money", "Jane Mayer", "Politics", 576);
+		bookshelf[21] = new Book("A Colony in a Nation", "Chris Hayes", "Politics", 272);
+		bookshelf[22] = new Book("Democracy in Chains", "Nancy MacLean", "Politics", 368);
+		bookshelf[23] = new Book("Give Me Liberty", "Naomi Wolf", "Politics", 376);
+	}
+	
+	
 }
+
 
