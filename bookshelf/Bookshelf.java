@@ -70,10 +70,9 @@ public class Bookshelf {
 			Scanner auth = new Scanner(System.in);
 			String author = auth.nextLine();
 		
-			
+			System.out.println("Books by author: ");
 			for (int i = 0; i < bookshelf.length; i++) {
 				if(bookshelf[i].author.equals(author)) {
-					System.out.println("Books by author: ");
 					System.out.println(bookshelf[i].title);
 				}
 			}
@@ -97,7 +96,18 @@ public class Bookshelf {
 	
 	public static void suggest() {
 		//randomize a number between indices
+		int bookNum = 0;
+		
+		for(int i = 0; i < bookshelf.length; i++) {
+			if (bookshelf[i].title != "") {
+				bookNum++;
+			}
+			
+		}
+		
+		int random = (int)(Math.random() * bookNum + 1);
 		//print resulting book to console
+		System.out.println("Read " + bookshelf[random].title + " by " + bookshelf[random].author);
 	}
 	
 	public static void display() {
@@ -147,7 +157,7 @@ public class Bookshelf {
 		System.out.println("r-- remove book");
 		System.out.println("f-- find a book");
 		System.out.println("d-- display books");
-		System.out.println("s-- suggest a book");
+		System.out.println("s-- suggest a random book");
 		
 		Scanner scnr = new Scanner(System.in);
 		String menuItem = scnr.next();
@@ -155,6 +165,7 @@ public class Bookshelf {
 		if (menuItem.charAt(0) == 'a') {
 			add();
 			display();
+			menu();
 		}
 		else if (menuItem.charAt(0) == 'r') {
 			remove();
@@ -162,12 +173,15 @@ public class Bookshelf {
 		}
 		else if (menuItem.charAt(0) == 'f') {
 			find();
+			menu();
 		}
 		else if (menuItem.charAt(0) == 'd') {
 			display();
+			menu();
 		}
 		else if (menuItem.charAt(0) == 's') {
 			suggest();
+			menu();
 		}
 		
 		
