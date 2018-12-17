@@ -1,23 +1,26 @@
 package bookshelf;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class Bookshelf {
-	static Book[] bookshelf = new Book[100];
-	
+	//establish new bookshelf with size of all books
+	static Book[] bookshelf = new Book[24];
 	
 	public static void main(String[] args) {		
-		
+		//populate the bookshelf with elements included in populate() method
 		populate();
 		
+		//pull up menu for user
 		menu();
 
 	}
 	
-	
 	public static void add() {
 		Scanner scnr = new Scanner(System.in);
 		
+		//Collect relevant data from user regarding new book to add
 		System.out.println("What is the name of the book you would like to add? ");
 		String title = scnr.nextLine();
 		
@@ -31,30 +34,52 @@ public class Bookshelf {
 		System.out.println("How many pages long is the book? ");
 		int pageCount = scnr.nextInt();
 		
-		scnr.close();
+		//Make new array with added length to accommodate new book
+		Book[] copyBookshelf = Arrays.copyOf(bookshelf, bookshelf.length + 1);
 		
-		int i = 0;
-		while (bookshelf[i].title != ""){
-			i++;
-		}
-		bookshelf[i+1] = new Book(title, author, genre, pageCount);
+		//Copy contents back (with added length)
+		bookshelf = Arrays.copyOf(copyBookshelf, copyBookshelf.length);
+
+		//Place new book at the end of the shelf
+		bookshelf[bookshelf.length - 1] = new Book(title, author, genre, pageCount);
 	
-		
 	}
 	
 	public static void remove() {
 		Scanner scnr = new Scanner(System.in);
 		
-		System.out.println("What is the name of the title you would like to remove? ");
+		//Make copy of bookshelf array minus one in length for removal
+		Book[] copyBookshelf = new Book[bookshelf.length - 1];
+		
+		System.out.println("What is the title you would like to remove? ");
 		String titleToRemove = scnr.nextLine();
 		
-		for (int i = 0; i < bookshelf.length; i++) {
-			if(bookshelf[i].title == titleToRemove) {
-				//Remove title from array somehow
+		int badIndex;
+		
+		for (int i = 0; i < copyBookshelf.length; i++) {
+			//find index of book to remove
+			if(titleToRemove.equals(bookshelf[i].title)) {
+				badIndex = i; 
+			}
+			//because it made me have an alternative in case the if condition above wasn't met
+			else {
+				badIndex = 99;
+			}
+			
+			//copy everything prior to book to be removed
+			for (int j = 0; j < badIndex; j++) {
+				copyBookshelf[i] = bookshelf[i];
+			}
+			
+			//copy everything after book to be removed
+			for (int j = badIndex + 1; j < bookshelf.length; j++) {
+				copyBookshelf[i] = bookshelf[j];
 			}
 		}
-		scnr.close();
 		
+		//set your old bookshelf to the new reduced version
+		bookshelf = copyBookshelf.clone();
+
 	}
 	
 	public static void find() {
@@ -69,7 +94,8 @@ public class Bookshelf {
 			System.out.println("Enter name of author to find books:");
 			Scanner auth = new Scanner(System.in);
 			String author = auth.nextLine();
-		
+			
+			//iterate through authors and print their titles
 			System.out.println("Books by author: ");
 			for (int i = 0; i < bookshelf.length; i++) {
 				if(bookshelf[i].author.equals(author)) {
@@ -77,6 +103,8 @@ public class Bookshelf {
 				}
 			}
 		}
+		
+		//return title and information
 		else if (choice.charAt(0) == 't') {
 			System.out.println("Enter name of title:");
 			Scanner bookTitle = new Scanner(System.in);
@@ -86,11 +114,15 @@ public class Bookshelf {
 			for (int i = 0; i < bookshelf.length; i++) {
 				if(bookshelf[i].title.equals(title)) {
 					System.out.println(title + " is by " + bookshelf[i].author + " and is " + bookshelf[i].pageCount + " pages long.");
+					System.out.println("\n");
 				}
 			}
 		}
+		//return to menu if they don't select a valid option
 		else {
 			System.out.println("Not a valid option");
+			System.out.println("\n");
+			menu();
 		}
 	}
 	
@@ -102,20 +134,20 @@ public class Bookshelf {
 			if (bookshelf[i].title != "") {
 				bookNum++;
 			}
-			
 		}
 		
 		int random = (int)(Math.random() * bookNum + 1);
 		//print resulting book to console
 		System.out.println("Read " + bookshelf[random].title + " by " + bookshelf[random].author);
+		
+		System.out.println("\n");
 	}
 	
 	public static void display() {
 		for(int i = 0; i < bookshelf.length; i++) {
-			if (bookshelf[i].title != "") {
-				System.out.println(bookshelf[i].title + " by " + bookshelf[i].author);
-			}
+			System.out.println(bookshelf[i].title + " by " + bookshelf[i].author);
 		}
+		System.out.println("\n");
 	}
 	
 
@@ -145,9 +177,7 @@ public class Bookshelf {
 		bookshelf[21] = new Book("A Colony in a Nation", "Chris Hayes", "Politics", 272);
 		bookshelf[22] = new Book("Democracy in Chains", "Nancy MacLean", "Politics", 368);
 		bookshelf[23] = new Book("Give Me Liberty", "Naomi Wolf", "Politics", 376);
-		for (int i = 24; i < 100; i++) {
-			bookshelf[i] = new Book("", "", "", 0);
-		}
+
 	}
 	
 	public static void menu() {
@@ -158,32 +188,56 @@ public class Bookshelf {
 		System.out.println("f-- find a book");
 		System.out.println("d-- display books");
 		System.out.println("s-- suggest a random book");
+		System.out.println("q-- quit");
 		
 		Scanner scnr = new Scanner(System.in);
-		String menuItem = scnr.next();
+		String menuItem;
 		
-		if (menuItem.charAt(0) == 'a') {
+		if (scnr.hasNext()) {
+			menuItem = scnr.next();
+		}
+		else {
+			menuItem = String.valueOf('q');
+		}
+		
+		switch (menuItem.charAt(0))
+		{
+		case 'a': 
 			add();
 			display();
 			menu();
-		}
-		else if (menuItem.charAt(0) == 'r') {
+			break;
+		
+		case 'r':
 			remove();
 			display();
-		}
-		else if (menuItem.charAt(0) == 'f') {
+			menu();
+			break;
+			
+		case 'f':
 			find();
 			menu();
-		}
-		else if (menuItem.charAt(0) == 'd') {
+			break;
+			
+		case 'd':
 			display();
 			menu();
-		}
-		else if (menuItem.charAt(0) == 's') {
+			break;
+			
+		case 's':
 			suggest();
 			menu();
+			break;
+			
+		case 'q':
+			System.out.println("Goodbye!");
+			break;
+			
+		default:
+			System.out.println("Input did not match menu option. Please try again");
+			System.out.println("\n");
+			menu();
 		}
-		
 		
 		scnr.close();
 	}
